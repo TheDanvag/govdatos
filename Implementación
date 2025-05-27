@@ -1,0 +1,38 @@
+package com.govdatos.service.impl;
+
+import com.govdatos.model.Politica;
+import com.govdatos.repository.PoliticaRepository;
+import com.govdatos.service.PoliticaService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PoliticaServiceImpl implements PoliticaService {
+
+    private final PoliticaRepository repo;
+
+    public PoliticaServiceImpl(PoliticaRepository repo) {
+        this.repo = repo;
+    }
+
+    @Override
+    public List<Politica> listar() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Politica crear(Politica politica) {
+        return repo.save(politica);
+    }
+
+    @Override
+    public Politica obtenerPorId(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        repo.deleteById(id);
+    }
+}
